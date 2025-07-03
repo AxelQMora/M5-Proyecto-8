@@ -34,8 +34,8 @@ export function renderErrors(form, errors = {}) {
     }
 }
 
-export function renderRegisterOutput(pre, dataObj) {
-    pre.textContent = JSON.stringify(dataObj, null, 2);
+export function renderRegisterOutput(pre, dataObj) { 
+    pre.textContent = JSON.stringify(dataObj, null, 2);  //Regresa un objecto JSON y lo pone en el pre
 }
 
 export async function renderTodoList(ul) {

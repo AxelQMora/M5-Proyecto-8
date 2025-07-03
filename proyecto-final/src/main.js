@@ -1,7 +1,7 @@
 /* (MODULO) Este es el punto de entrada del aplicativo, el que concentra todas las funcionalidades */
 
 import { userSchema, todoSchema, validate } from "./schema.js";
-import { addTodo } from "./state.js";
+import { addTodo, addUser } from "./state.js";
 import {
     renderErrors,
     renderRegisterOutput,
@@ -15,7 +15,7 @@ const registerOutput = document.querySelector("#registerOutput");
 
 registerForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const formData = Object.fromEntries(new FormData(registerForm));
+    const formData = Object.fromEntries(new FormData(registerForm)); //Object que contiene los datos del usuario
     const { data, errors } = validate(userSchema, formData);
 
     console.log("FORMDATA:", formData)
@@ -23,6 +23,7 @@ registerForm.addEventListener("submit", (e) => {
     if (errors) {
         renderErrors(registerForm, errors);
     } else {
+        addUser(JSON.stringify(formData)); //---------------------------------------------------------------------------------------
         renderErrors(registerForm); // limpia
         renderRegisterOutput(registerOutput, data);
         registerForm.reset();

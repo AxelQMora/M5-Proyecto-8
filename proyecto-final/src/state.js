@@ -50,3 +50,26 @@ export function removeTodo(index) {
 /* function persist() {
     localStorage.setItem("todos", JSON.stringify(todos));
 } */
+
+//Agregar usuarios ---------------------------------------------------------------------------------------------
+export const addUser = async (userData) => { 
+    try {
+        // Espera a que la promesa de axios se resuelva
+        const response = await axios.post(`${BASE_URL_API}/user`, userData, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        console.log("Registro de nuevo usuario exitoso", response.data);
+
+        // Devuelve los datos de la respuesta
+        return response.data;
+    } catch (error) {
+        // Es buena práctica registrar el error específico
+        console.error("Error al registrar usuario:", error);
+
+        // Lanza el error para que la función que llama a addUser sepa que algo salió mal
+        throw error;
+    }
+};
