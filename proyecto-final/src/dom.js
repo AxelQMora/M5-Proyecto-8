@@ -67,16 +67,25 @@ export async function renderTodoList(ul) {
 
 /* ---------- evento delegación para lista ---------- */
 export function setupTodoActions(ul, onChange) {
-    ul.addEventListener("click", (e) => {
-
+    ul.addEventListener("click", async (e) => {
         const btn = e.target.closest("button");
-
         if (!btn) return;
 
         const { action, id } = btn.dataset;
-        if (action === "toggle") toggleDone(id);
-        if (action === "delete") removeTodo(id);
 
-        onChange();
+        if (action === "toggle") {
+            const li = btn.closest("li");
+            const isDone = li.classList.contains("done");
+
+            await toggleDone(id, isDone ? 0 : 1); // 👈 llamada correcta
+            onChange();
+        }
+
+        if (action === "delete") {
+            await removeTodo(id);
+            onChange();
+        }
     });
 }
+
+

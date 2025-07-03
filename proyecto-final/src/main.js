@@ -52,6 +52,8 @@ todoForm.addEventListener("submit", (e) => {
         renderErrors(todoForm);
         todoForm.reset();
         refreshTodos();
+        onChange();
     }
 });
+
 

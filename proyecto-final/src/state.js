@@ -35,17 +35,28 @@ export async function addTodo(item) {
     }
 }
 
-export function toggleDone(index) {
-    //const todos = getTodos()
-    todos[index].done = !todos[index].done;
-    persist();
+export async function toggleDone(id, done) {
+    try {
+        const response = await axios.put(`${BASE_URL_API}/todos/${id}`, { done });
+        return response.data;
+    } catch (err) {
+        console.log("Error al actualizar estado de TODO:", err);
+        return null;
+    }
 }
 
-export function removeTodo(index) {
-    //const todos = getTodos()
-    todos.splice(index, 1);
-    persist();
+
+export async function removeTodo(id) {
+    try {
+        const response = await axios.delete(`${BASE_URL_API}/todos/${id}`);
+        return response.data;
+    } catch (err) {
+        console.log("Error al eliminar TODO:", err);
+        return null;
+    }
 }
+
+
 
 /* function persist() {
     localStorage.setItem("todos", JSON.stringify(todos));

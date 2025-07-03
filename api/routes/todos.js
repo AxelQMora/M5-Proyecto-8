@@ -39,6 +39,22 @@ router.put('/:id', (req, res) => {  // ← Usa :id, no query string
     );
 });
 
+//ELIMINAR TODO
+// Eliminar un TODO por ID
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+
+    db.run(
+        `DELETE FROM todos WHERE id = ?`,
+        [id],
+        function (err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ message: "Tarea eliminada", id });
+        }
+    );
+});
+
+
 
 router.get('/', (req, res) => {
     db.all(
