@@ -34,8 +34,9 @@ export function renderErrors(form, errors = {}) {
     }
 }
 
-export function renderRegisterOutput(pre, dataObj) { 
-    pre.textContent = JSON.stringify(dataObj, null, 2);  //Regresa un objecto JSON y lo pone en el pre
+export function renderRegisterOutput(pre, dataObj) { //Dejé el mismo nombre por practicidad, pero cambie la función
+    pre.innerHTML = `<h4 class="alert-heading">Bienvenido ${dataObj.nickname}</h4>.
+    <p> Tu registro se ha realizado con éxito.</p>`;  //Regresa un objecto JSON y lo pone en el pre
 }
 
 export async function renderTodoList(ul) {

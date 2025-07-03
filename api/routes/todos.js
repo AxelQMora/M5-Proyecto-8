@@ -20,6 +20,26 @@ router.post('/', (req, res) => {
     )
 })
 
+//Cambiar estado de un to-do
+// En routes/todos.js
+router.put('/:id', (req, res) => {  // ← Usa :id, no query string
+    console.log("📌 Ruta PUT /api/todos/:id llamada");
+    console.log("ID:", req.params.id, "Body:", req.body);
+
+    const { id } = req.params; // <- ID viene de la URL (ej: /api/todos/1)
+    const { done } = req.body;
+
+    db.run(
+        `UPDATE todos SET done = ? WHERE id = ?`,
+        [done, id],
+        function (err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ id, done });
+        }
+    );
+});
+
+
 router.get('/', (req, res) => {
     db.all(
         `SELECT * FROM todos`, (err, rows) => {
